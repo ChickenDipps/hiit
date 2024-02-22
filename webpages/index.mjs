@@ -32,19 +32,36 @@ function stopButtonAttacher() {
     });
 }
 
+function timerBoxAttacher() {
+    let box = document.querySelector("#timer");
+    box.addEventListener("change", () => {
+        checkFormatting();
+    });
+
+}
+
 function checkFormatting() {
+    console.log("Checking formatting")
     let input = document.querySelector("#timer").value;
-    if (input[2] !== ":" && (input.length <== 2 || input.length >== 4)) {
-        if (input.length <== 2) {
+    if (input[2] !== ":" && (input.length <= 2 || input.length >= 4)) {
+        console.log("Formatting")
+        if (input.length <= 2) {
             input = input + ":00";
+            console.log(input);
         } else {
-
+            if (input.length > 4) {
+                input = input.substring(input.length - 4);
+            }
         }
+        document.querySelector("#timer").value = input;
     }
+}
 
-    function main() {
-        startButtonAttacher();
-        stopButtonAttacher();
-    }
+function main() {
+    startButtonAttacher();
+    stopButtonAttacher();
+    formatButtonAttacher();
+    timerBoxAttacher();
+}
 
-    main();
+main();
