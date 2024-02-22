@@ -1,7 +1,3 @@
-"use strict";
-
-// Your code goes here
-
 
 let intervalId;
 
@@ -36,8 +32,19 @@ function stopButtonAttacher() {
     });
 }
 
-//What to run when the window is loaded
-window.onload = function () {
-    startButtonAttacher();
-    stopButtonAttacher();
-}
+function checkFormatting() {
+    let input = document.querySelector("#timer").value;
+    if (input[2] !== ":" && (input.length <== 2 || input.length >== 4)) {
+        if (input.length <== 2) {
+            input = input + ":00";
+        } else {
+
+        }
+    }
+
+    function main() {
+        startButtonAttacher();
+        stopButtonAttacher();
+    }
+
+    main();
