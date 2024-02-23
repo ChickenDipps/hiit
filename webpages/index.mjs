@@ -60,7 +60,6 @@ function checkFormatting() {
 function main() {
     startButtonAttacher();
     stopButtonAttacher();
-    formatButtonAttacher();
     timerBoxAttacher();
 }
 
