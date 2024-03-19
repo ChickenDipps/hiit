@@ -1,0 +1,20 @@
+{
+    "workout1": {
+        "name": "Workout 1",
+        "description": "Feebly doo feebly da",
+        "timings": [
+            "5:00",
+            "1:00",
+            "3:00",
+            "1:00",
+            "4:00"
+        ],
+        "exercises": [
+            "Jumping Jacks",
+            "Rest",
+            "Pushups",
+            "Rest",
+            "Squats"
+        ]
+    }
+}
