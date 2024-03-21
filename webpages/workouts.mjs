@@ -36,8 +36,9 @@ function displayWorkoutList(workouts) {
 
 // Removes the elements added by the selection template and adds the workout template
 function buttonClicked() {
+  const workout = JSON.parse(this.dataset.workout);
   console.log('Button clicked');
-  const workoutName = this.id;
+  const workoutName = workout.id;
   console.log(workoutName);
   let elem = document.querySelector('#workoutList');
   elem.parentNode.removeChild(elem);
@@ -48,10 +49,9 @@ function buttonClicked() {
 
   const template = document.querySelector('#workout');
   const templateContent = template.content.cloneNode(true);
-  const workout = JSON.parse(this.dataset.workout);
   templateContent.querySelector('#workoutName').textContent = workout.name;
   templateContent.querySelector('#workoutDescription').textContent = workout.description;
-  const exercises = workout.exercises
+  const exercises = workout.exercises;
   for (let i = 0; i < exercises.length; i++) {
     const li = document.createElement('li');
     li.textContent = exercises[i];
