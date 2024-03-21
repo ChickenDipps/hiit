@@ -14,24 +14,26 @@
             <li><a href="custom.html">Create a workout</a></li>
         </ul>
     </nav>
-    <h1>Choose your workout</h1>
-    <p>Choose a workout from the list below</p>
-    <ul id="workoutList">
-
-        <!-- <li><a href="workouts/workout1.html">Workout 1</a>
-            <p>This workout consists of blah blah blah</p>
-        </li>
-        <li><a href="workouts/workout2.html">Workout 2</a>
-            <p>This workout consists of blib bop plop</p>
-        </li>
-        <li><a href="workouts/workout3.html">Workout 3</a>
-            <p>This workout consists of bing bong</p>
-        </li> -->
-    </ul>
 </body>
 
-<template>
+<template id="selection">
+    <h1>Choose your workout</h1>
+    <p>Choose a workout from the list below</p>
+    <ul id="workoutList"></ul>
+</template>
 
+<template id="workout">
+    <h1 id="workoutName"></h1>
+    <p id="workoutDescription"></p>
+    <ul id="exerciseList"></ul>
+</template>
+
+<template id="timer">
+    <h2>Timer</h2>
+    <h4>Please input a time (mm:ss)</h4>
+    <input type="text" id="timer" value="12:34">
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
 </template>
 
 </html>
