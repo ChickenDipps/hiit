@@ -1,3 +1,5 @@
+import * as timerModule from './modules/timer.mjs';
+
 // Gets all workout JSON files that are in the workoutIndex list
 async function getWorkouts() {
   const workoutIndex = ['1', '2'];
@@ -57,8 +59,13 @@ function buttonClicked() {
     li.textContent = exercises[i];
     templateContent.querySelector('#exerciseList').append(li);
   }
+
+  const timer = document.querySelector('#timer');
+  const timerContent = timer.content.cloneNode(true);
+  timerContent.querySelector('#timerInput').value = workout.timings[0];
+  document.body.append(timerContent);
   document.body.append(templateContent);
-  document.body.append(templateContent);
+  timerModule.main();
 }
 
 function loadScreen() {
