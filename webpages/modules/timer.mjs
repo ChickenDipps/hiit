@@ -2,18 +2,19 @@
 let intervalId;
 
 // Checks if the start button is clicked, if so, it starts the timer
-export function startButtonAttacher() {
+export function startButtonAttacher(workout) {
   const button = document.querySelector('#start');
+  let currentTiming = 0;
   button.addEventListener('click', () => {
     console.log('Start button clicked');
+
+    // Start the timer
     intervalId = setInterval(() => {
       const input = document.querySelector('#timerInput').value;
       const inputArray = input.split(':');
       let minutes = parseInt(inputArray[0]);
       let seconds = parseInt(inputArray[1]);
-      if (seconds === 0 && minutes === 0) {
-        clearInterval(intervalId);
-      } else if (seconds === 0) {
+      if (seconds === 0) {
         minutes--;
         seconds = 59;
       } else {
@@ -21,6 +22,22 @@ export function startButtonAttacher() {
       }
       const newTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
       document.querySelector('#timerInput').value = newTime;
+
+      const timings = workout.timings;
+      console.log('Current workout: ' + workout.exercises[currentTiming]);
+
+      // Check if the timer is at 0:00, if so, move to the next workout
+      if (input === '0:00') {
+        if (currentTiming < timings.length - 1) {
+          currentTiming++;
+          console.log('Next workout: ' + workout.exercises[currentTiming]);
+          document.querySelector('#timerInput').value = timings[currentTiming];
+        } else {
+          console.log('Workout complete');
+          clearInterval(intervalId);
+          document.querySelector('#timerInput').value = '0:00';
+        }
+      }
     }, 1000);
   });
 }
@@ -57,8 +74,8 @@ export function checkFormatting() {
   }
 }
 
-export function main() {
-  startButtonAttacher();
+export function main(workout) {
+  startButtonAttacher(workout);
   stopButtonAttacher();
   timerBoxAttacher();
 }

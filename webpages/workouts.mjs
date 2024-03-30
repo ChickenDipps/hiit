@@ -20,10 +20,7 @@ async function getWorkouts() {
 function displayWorkoutList(workouts) {
   console.log('Displaying workouts');
   const workoutList = document.querySelector('#workoutList');
-  console.log(workoutList);
-  console.log(workouts[0]);
   for (let i = 0; i < workouts.length; i++) {
-    console.log('Doing Stuff');
     const workout = workouts[i];
     const workoutListItem = document.createElement('li');
     const button = document.createElement('button');
@@ -65,7 +62,7 @@ function buttonClicked() {
   timerContent.querySelector('#timerInput').value = workout.timings[0];
   document.body.append(timerContent);
   document.body.append(templateContent);
-  timerModule.main();
+  timerModule.main(workout);
 }
 
 function loadScreen() {
