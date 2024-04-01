@@ -5,6 +5,7 @@ let intervalId;
 export function startButtonAttacher(workout) {
   const button = document.querySelector('#start');
   let currentTiming = 0;
+  document.querySelector('#currentWorkout').textContent = 'Current exercise: ' + workout.exercises[currentTiming];
   button.addEventListener('click', () => {
     console.log('Start button clicked');
 
@@ -31,10 +32,12 @@ export function startButtonAttacher(workout) {
         if (currentTiming < timings.length - 1) {
           currentTiming++;
           console.log('Next workout: ' + workout.exercises[currentTiming]);
+          document.querySelector('#currentWorkout').textContent = 'Current workout: ' + workout.exercises[currentTiming];
           document.querySelector('#timerInput').value = timings[currentTiming];
         } else {
           console.log('Workout complete');
           clearInterval(intervalId);
+          document.querySelector('#currentWorkout').textContent = 'Workout Complete';
           document.querySelector('#timerInput').value = '0:00';
         }
       }
