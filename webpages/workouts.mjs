@@ -53,7 +53,7 @@ function buttonClicked() {
   const exercises = workout.exercises;
   for (let i = 0; i < exercises.length; i++) {
     const li = document.createElement('li');
-    li.textContent = exercises[i];
+    li.textContent = exercises[i] + ' - ' + workout.timings[i];
     templateContent.querySelector('#exerciseList').append(li);
   }
 
