@@ -7,9 +7,9 @@ export async function init() {
     driver: sqlite3.Database,
     verbose: true,
   });
-  await db.run('CREATE TABLE workouts (id INTEGER PRIMARY KEY, data TEXT NOT NULL, user CHAR(36), time DATETIME)');
-  await db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT');
-  await db.run('INSERT INTO users (name) VALUES ("Lily"), ("Mark"), "Matt"');
+  await db.run('CREATE TABLE IF NOT EXISTS workouts (id INTEGER PRIMARY KEY, data TEXT NOT NULL, user CHAR(36), time DATETIME)');
+  await db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)');
+  await db.run('INSERT INTO users (name) VALUES ("Lily"), ("Mark"), ("Matt")');
   const workoutData = [{
     id: '1',
     name: 'Workout 1',
@@ -49,7 +49,7 @@ export async function init() {
     ],
   }];
   for (const workout of workoutData) {
-    await db.run('INSERT INTO workouts (data, user) VALUES (?, ?)', JSON.stringify(workout), 1);
+    await db.run('INSERT INTO workouts (data, user, time) VALUES (?, ?, ?)', JSON.stringify(workout), 1, new Date().toISOString());
   }
   return db;
 }

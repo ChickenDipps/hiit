@@ -2,15 +2,11 @@ import * as timerModule from './modules/timer.mjs';
 
 // Gets all workout JSON files that are in the workoutIndex list
 async function getWorkouts() {
-  const workoutIndex = ['1', '2'];
-  const workouts = [];
-  for (let i = 0; i < workoutIndex.length; i++) {
-    const workout = await fetch(`/workouts/workout${workoutIndex[i]}.json`);
-    if (!workout.ok) {
-      throw new Error(`HTTP error! status: ${workout.status}`);
-    }
-    workouts.push(await workout.json());
+  const response = await fetch('/api/workouts');
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
   }
+  const workouts = await response.json();
   console.log(workouts);
   return workouts;
 }
@@ -22,6 +18,7 @@ function displayWorkoutList(workouts) {
   const workoutList = document.querySelector('#workoutList');
   for (let i = 0; i < workouts.length; i++) {
     const workout = workouts[i];
+    console.log(workout);
     const workoutListItem = document.createElement('li');
     const button = document.createElement('button');
     button.textContent = (workout.name);
