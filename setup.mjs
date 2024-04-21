@@ -11,7 +11,6 @@ export async function init() {
   await db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)');
   await db.run('INSERT INTO users (name) VALUES ("Lily"), ("Mark"), ("Matt")');
   const workoutData = [{
-    id: '1',
     name: 'Workout 1',
     description: 'Feebly doo feebly da',
     timings: [
@@ -30,7 +29,6 @@ export async function init() {
     ],
   },
   {
-    id: '2',
     name: 'Workout 2',
     description: 'Feebly doo feebly da',
     timings: [

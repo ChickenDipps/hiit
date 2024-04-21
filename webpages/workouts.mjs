@@ -19,6 +19,7 @@ function displayWorkoutList(workouts) {
   for (let i = 0; i < workouts.length; i++) {
     const workout = workouts[i];
     console.log(workout);
+    console.log(workout.name);
     const workoutListItem = document.createElement('li');
     const button = document.createElement('button');
     button.textContent = (workout.name);

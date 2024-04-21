@@ -11,7 +11,8 @@ app.get('/api/workouts', async (req, res) => {
     filename: './database.sqlite',
     driver: sqlite3.Database,
   });
-  const workouts = await db.all('SELECT * FROM workouts');
-  res.json(workouts);
+  const workouts = await db.all('SELECT data FROM workouts;');
+  const parsedWorkouts = workouts.map(workout => JSON.parse(workout.data));
+  res.json(parsedWorkouts);
 });
 app.listen(8080);
