@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<script defer src="create.mjs"></script>
+<title>Create a workout</title>
+<html>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="workouts.html">Workouts</a></li>
+            <li><a href="create.html">Create a workout</a></li>
+        </ul>
+    </nav>
+    <h1>Create a workout</h1>
+    <form id="create-workout-form">
+        <label for="workout-name">Name</label>
+        <input type="text" id="workout-name" name="name" placeholder="Name" required>
+        <label for="workout-description">Description</label>
+        <textarea id="workout-description" name="description" placeholder="Description" required></textarea>
+        <label for="workout-exercise-1">Exercise</label>
+        <input type="text" id="workout-exercise" name="exercise" placeholder="Exercise" required>
+        <label for="workout-timing-1">Duration</label>
+        <input type="text" id="workout-timing" name="timing" placeholder="mm:ss" required>
+        <button type="button" id="addExercise">Add Exercise</button>
+        <button type="submit">Create Workout</button>
+    </form>
+</html>
