@@ -15,4 +15,12 @@ app.get('/api/workouts', async (req, res) => {
   const parsedWorkouts = workouts.map(workout => JSON.parse(workout.data));
   res.json(parsedWorkouts);
 });
+app.get('/api/users', async (req, res) => {
+  const db = await open({
+    filename: './database.sqlite',
+    driver: sqlite3.Database,
+  });
+  const users = await db.all('SELECT name FROM users;');
+  res.json(users);
+});
 app.listen(8080);
