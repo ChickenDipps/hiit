@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<script defer src="create.mjs"></script>
+<script type="module" src="create.mjs"></script>
 <title>Create a workout</title>
 <html>
     <nav>
@@ -10,16 +10,26 @@
         </ul>
     </nav>
     <h1>Create a workout</h1>
-    <form id="create-workout-form">
-        <label for="workout-name">Name</label>
-        <input type="text" id="workout-name" name="name" placeholder="Name" required>
-        <label for="workout-description">Description</label>
-        <textarea id="workout-description" name="description" placeholder="Description" required></textarea>
-        <label for="workout-exercise-1">Exercise</label>
-        <input type="text" id="workout-exercise" name="exercise" placeholder="Exercise" required>
-        <label for="workout-timing-1">Duration</label>
-        <input type="text" id="workout-timing" name="timing" placeholder="mm:ss" required>
-        <button type="button" id="addExercise">Add Exercise</button>
-        <button type="submit">Create Workout</button>
-    </form>
 </html>
+
+<template id="create-template">
+        <div id="form-body">
+        <label for=name>Name</label>
+        <input type="text" name="name" required>
+        <label for="description">Description</label>
+        <input type="text" name="description" required>
+        <label for="exercise">Exercise</label>
+        <input type="text" name="exercise" required>
+        <label for="time">Time</label>
+        <input type="text" name="time" class="time" placeholder="mm:ss" required>
+        </div>
+        <button type="button" id="newExercise">Add another exercise</button> 
+        <button id="create-button">Create</button>
+</template>
+
+<template id="exercise-template">
+    <label for="exercise">Exercise</label>
+    <input type="text" name="exercise" required>
+    <label for="time">Time</label>
+    <input type="text" name="time" class="time" placeholder="mm:ss" required>
+</template>

@@ -56,24 +56,23 @@ export function stopButtonAttacher() {
 export function timerBoxAttacher() {
   const box = document.querySelector('#timerInput');
   box.addEventListener('change', () => {
-    checkFormatting();
+    box.value = checkFormatting(box.value);
   });
 }
 
-export function checkFormatting() {
+export function checkFormatting(el) {
   console.log('Checking formatting');
-  let input = document.querySelector('#timerInput').value;
-  if (input[2] !== ':' && (input.length <= 2 || input.length >= 4)) {
+  if (el[2] !== ':' && (el.length <= 2 || el.length >= 4)) {
     console.log('Formatting');
-    if (input.length <= 2) {
-      input = input + ':00';
-      console.log(input);
+    if (el.length <= 2) {
+      el = el + ':00';
+      console.log(el);
     } else {
-      if (input.length > 4) {
-        input = input.substring(input.length - 4);
+      if (el.length > 4) {
+        el = el.substring(el.length - 4);
       }
     }
-    document.querySelector('#timerInput').value = input;
+    return el;
   }
 }
 
