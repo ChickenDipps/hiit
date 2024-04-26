@@ -20,7 +20,7 @@ app.get('/api/users', async (req, res) => {
     filename: './database.sqlite',
     driver: sqlite3.Database,
   });
-  const users = await db.all('SELECT name FROM users;');
+  const users = await db.all('SELECT * FROM users;');
   res.json(users);
 });
 app.listen(8080);
