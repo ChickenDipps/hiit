@@ -1,3 +1,6 @@
+import { setLoggedInUser } from './modules/login.mjs';
+
+
 async function getUsers() {
   const response = await fetch('/api/users');
   const users = await response.json();
@@ -36,6 +39,7 @@ async function main() {
   const users = await getUsers();
   displayUsers(users);
   loginButtonAttacher();
+  setLoggedInUser();
 }
 
 main();

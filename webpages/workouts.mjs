@@ -1,8 +1,10 @@
 import * as timerModule from './modules/timer.mjs';
+import { setLoggedInUser } from './modules/login.mjs';
 
 // Gets all workout JSON files that are in the workoutIndex list
 async function getWorkouts() {
-  const response = await fetch('/api/workouts');
+  const userID = localStorage.getItem('userId');
+  const response = await fetch(`/api/workouts?userId=${encodeURIComponent(userID)}`);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -58,8 +60,8 @@ function buttonClicked() {
   const timer = document.querySelector('#timer');
   const timerContent = timer.content.cloneNode(true);
   timerContent.querySelector('#timerInput').value = workout.timings[0];
-  document.body.append(timerContent);
-  document.body.append(templateContent);
+  document.querySelector('#content').append(timerContent);
+  document.querySelector('#content').append(templateContent);
   timerModule.main(workout);
 }
 
@@ -67,7 +69,7 @@ function loadScreen() {
   console.log('Loading screen');
   const template = document.querySelector('#selection');
   const templateContent = template.content.cloneNode(true);
-  document.body.append(templateContent);
+  document.querySelector('#content').append(templateContent);
 }
 
 
@@ -75,5 +77,6 @@ async function main() {
   loadScreen();
   const workouts = await getWorkouts();
   displayWorkoutList(workouts);
+  setLoggedInUser();
 }
 main();
