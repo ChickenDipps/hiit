@@ -1,10 +1,11 @@
 import { checkFormatting } from './modules/timer.mjs';
+import { setLoggedInUser } from './modules/login.mjs';
 
 function loadScreen() {
   console.log('Loading screen');
   const template = document.querySelector('#create-template');
   const clone = document.importNode(template.content, true);
-  document.body.appendChild(clone);
+  document.querySelector('#form').append(clone);
   console.log('Screen loaded');
   const time = document.querySelector('.time');
   time.addEventListener('change', () => {
@@ -30,24 +31,43 @@ function newExerciseAttacher() {
 }
 
 function createButtonAttacher() {
-  const button = document.querySelector('#create-button');
+  const button = document.querySelector('#createButton');
   button.addEventListener('click', () => {
-    console.log('Create button clicked');
     const workout = {};
-    workout.name = document.querySelector('#name').value;
-    workout.description = document.querySelector('#description').value;
     const exercises = [];
     const times = [];
-    const timesArray = document.querySelectorAll('.time');
     const exercisesArray = document.querySelectorAll('.exercise');
-    timesArray.forEach(time => {
-      times.push(time.value);
-    });
+    const timesArray = document.querySelectorAll('.time');
     exercisesArray.forEach(exercise => {
       exercises.push(exercise.value);
     });
+
+    timesArray.forEach(time => {
+      times.push(time.value);
+    });
+
+    workout.name = document.querySelector('#name').value;
+    workout.description = document.querySelector('#description').value;
     workout.timings = times;
     workout.exercises = exercises;
+
+    const userID = localStorage.getItem('userID');
+    workout.userID = userID;
+
+    fetch('/api/workouts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(workout),
+    }).then(response => {
+      if (response.ok) {
+        console.log('Workout created');
+        window.location.href = '/';
+      } else {
+        console.error('Failed to create workout');
+      }
+    });
   });
 }
 
@@ -55,6 +75,7 @@ function main() {
   loadScreen();
   newExerciseAttacher();
   createButtonAttacher();
+  setLoggedInUser();
 }
 
 
