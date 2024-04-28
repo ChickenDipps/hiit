@@ -51,8 +51,8 @@ function createButtonAttacher() {
     workout.timings = times;
     workout.exercises = exercises;
 
-    const userID = localStorage.getItem('userID');
-    workout.userID = userID;
+    const userId = localStorage.getItem('userId');
+    workout.userID = userId;
 
     fetch('/api/workouts', {
       method: 'POST',
@@ -63,7 +63,7 @@ function createButtonAttacher() {
     }).then(response => {
       if (response.ok) {
         console.log('Workout created');
-        window.location.href = '/';
+        window.location.href = '/workouts.html';
       } else {
         console.error('Failed to create workout');
       }
