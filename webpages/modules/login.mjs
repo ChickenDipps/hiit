@@ -11,7 +11,7 @@ export function setLoggedInUser() {
     loginElement.appendChild(changeLink);
     loginElement.appendChild(document.createTextNode(')'));
     const logoutLink = document.createElement('a');
-    logoutLink.href = '#';
+    logoutLink.href = '/';
     logoutLink.textContent = 'logout';
     logoutLink.addEventListener('click', () => {
       localStorage.removeItem('userId');
@@ -27,4 +27,11 @@ export function setLoggedInUser() {
     loginElement.appendChild(loginLink);
     loginElement.appendChild(document.createTextNode(')'));
   }
+}
+
+export async function getUsers() {
+  const response = await fetch('/api/users');
+  const users = await response.json();
+  console.log(users);
+  return users;
 }

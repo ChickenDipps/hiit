@@ -1,12 +1,5 @@
-import { setLoggedInUser } from './modules/login.mjs';
+import { setLoggedInUser, getUsers } from './modules/login.mjs';
 
-
-async function getUsers() {
-  const response = await fetch('/api/users');
-  const users = await response.json();
-  console.log(users);
-  return users;
-}
 
 function displayUsers(users) {
   console.log('Displaying users ' + users);

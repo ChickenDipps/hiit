@@ -12,9 +12,10 @@ app.get('/api/workouts', async (req, res) => {
     filename: './database.sqlite',
     driver: sqlite3.Database,
   });
-  const workouts = await db.all('SELECT data FROM workouts JOIN user_workouts ON workouts.id = user_workouts.workout_id JOIN users ON user_workouts.user_id = users.id WHERE users.id = ?;', userID);
-  const parsedWorkouts = workouts.map(workout => JSON.parse(workout.data));
-  res.json(parsedWorkouts);
+  const workouts = await db.all('SELECT workouts.id, workouts.* FROM workouts JOIN user_workouts ON workouts.id = user_workouts.workout_id JOIN users ON user_workouts.user_id = users.id WHERE users.id = ?;', userID);
+  // const parsedWorkouts = workouts.map(workout => JSON.parse(workout.data));
+  console.log(workouts);
+  res.json(workouts);
 });
 
 // Retrieves the list of users from the database
@@ -41,4 +42,16 @@ app.post('/api/workouts', express.json(), async (req, res) => {
   await db.run('INSERT INTO user_workouts (user_id, workout_id) VALUES (?, ?)', userId, workoutId.lastID);
   res.json({ success: true });
 });
+
+// Shares a workout with another user
+app.post('/api/share', express.json(), async (req, res) => {
+  const { workoutId, userId } = req.body;
+  const db = await open({
+    filename: './database.sqlite',
+    driver: sqlite3.Database,
+  });
+  await db.run('INSERT INTO user_workouts (user_id, workout_id) VALUES (?, ?)', userId, workoutId);
+  res.json({ success: true });
+});
+
 app.listen(8080);
