@@ -1,6 +1,7 @@
 import { checkFormatting } from './modules/timer.mjs';
 import { setLoggedInUser } from './modules/login.mjs';
 
+// Loads the create workout screen
 function loadScreen() {
   console.log('Loading screen');
   const template = document.querySelector('#create-template');
@@ -13,6 +14,7 @@ function loadScreen() {
   });
 }
 
+// When the new error button is clicked, a exercise and time box is added
 function newExerciseAttacher() {
   console.log('Attaching new exercise button');
   const button = document.querySelector('#newExercise');
@@ -30,7 +32,9 @@ function newExerciseAttacher() {
   });
 }
 
+// When the create button is clicked, a workout is added to the database and associated with the currently logged in user
 function createButtonAttacher() {
+  // Create the workout object from the values in the form
   const button = document.querySelector('#createButton');
   button.addEventListener('click', () => {
     const workout = {};
@@ -50,10 +54,9 @@ function createButtonAttacher() {
     workout.description = document.querySelector('#description').value;
     workout.timings = times;
     workout.exercises = exercises;
+    workout.userID = localStorage.getItem('userId');
 
-    const userId = localStorage.getItem('userId');
-    workout.userID = userId;
-
+    // Send the workout to the server
     fetch('/api/workouts', {
       method: 'POST',
       headers: {

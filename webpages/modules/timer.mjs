@@ -53,6 +53,7 @@ export function stopButtonAttacher() {
   });
 }
 
+// Checks if the timer box is changed, if so, it formats the input
 export function timerBoxAttacher() {
   const box = document.querySelector('#timerInput');
   box.addEventListener('change', () => {
@@ -69,7 +70,7 @@ export function checkFormatting(el) {
       console.log(el);
     } else {
       if (el.length > 4) {
-        el = el.substring(el.length - 4);
+        el = el[0] + el[1] + ':' + el[2] + el[3];
       }
     }
     return el;

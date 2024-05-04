@@ -20,8 +20,8 @@ async function getWorkouts() {
 
 // Displays all the workouts in the workout list
 function displayWorkoutList(workouts) {
+  // Itterates through the workouts and adds them to the list
   console.log('Displaying workouts');
-  // const workouts = query.map(workout => JSON.parse(workout.data));
   const workoutList = document.querySelector('#workoutList');
   for (let i = 0; i < workouts.length; i++) {
     const workout = workouts[i];
@@ -29,6 +29,7 @@ function displayWorkoutList(workouts) {
     console.log(workout.name);
     const workoutListItem = document.createElement('li');
     const workoutButton = document.createElement('button');
+    const editButton = document.createElement('button');
     const shareButton = document.createElement('button');
 
     workoutButton.textContent = (workout.name);
@@ -36,16 +37,43 @@ function displayWorkoutList(workouts) {
     workoutButton.dataset.workout = JSON.stringify(workout);
     workoutButton.addEventListener('click', workoutButtonClicked);
 
+    editButton.textContent = 'Edit';
+    editButton.dataset.workout = JSON.stringify(workout);
+    editButton.addEventListener('click', (event) => editButtonClicked(event, workout.id));
+
     shareButton.textContent = 'Share';
     shareButton.dataset.workout = JSON.stringify(workout);
     shareButton.addEventListener('click', (event) => shareButtonClicked(event, workout.id));
+
     workoutListItem.append(workoutButton);
+    workoutListItem.append(editButton);
     workoutListItem.append(shareButton);
     workoutList.append(workoutListItem);
   }
 }
 
+function editButtonClicked(event, workoutId) {
+  console.log('Edit button clicked');
+  const workout = JSON.parse(event.target.dataset.workout);
+  console.log(workout);
+  console.log(workout.id);
+  const elem = document.querySelector('#content');
+  while (elem.firstChild) { elem.removeChild(elem.firstChild); }
+  const template = document.querySelector('#editTemplate');
+  const templateContent = template.content.cloneNode(true);
+  const exerciseTemplate = document.querySelector('#exerciseTemplate');
+  for (let i = 0; i < workout.exercises.length; i++) {
+    const exercise = workout.exercises[i];
+    const timing = workout.timings[i];
+    const li = document.createElement('li');
+    li.textContent = exercise + ' - ' + timing;
+    template.content.querySelector('#exerciseList').append(li);
+  }
+}
+
+// When the share button is clicked, it displays a list of users to share the workout with
 async function shareButtonClicked(event) {
+  // Gets the workout JSON file from the button
   console.log('Share button clicked');
   const workout = JSON.parse(event.target.dataset.workout);
   const workoutId = workout.id;
@@ -53,17 +81,19 @@ async function shareButtonClicked(event) {
   console.log('Workout id:' + workoutId);
   console.log('Workout name:' + workoutName);
 
+  // Clears the screen
   const elem = document.querySelector('#content');
   while (elem.firstChild) { elem.removeChild(elem.firstChild); }
 
+  // Adds the share template
   const template = document.querySelector('#shareTemplate');
   const templateContent = template.content.cloneNode(true);
   const userList = templateContent.querySelector('#userList');
   const users = await getUsers();
+
+  // Adds all the users to the list except the current user so you don't share with yourself
   for (let i = 0; i < users.length; i++) {
     const user = users[i];
-    console.log(typeof user.id);
-    console.log(typeof localStorage.getItem('userId'));
     if (user.id !== parseInt(localStorage.getItem('userId'))) {
       const userOption = document.createElement('option');
       userOption.value = user.id;

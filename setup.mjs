@@ -1,7 +1,8 @@
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 
-export async function init() {
+// Opens the database and runs the migration from the migration folder
+export async function main() {
   const db = await open({
     filename: './database.sqlite',
     driver: sqlite3.Database,
@@ -11,4 +12,4 @@ export async function init() {
   return db;
 }
 
-init();
+main();

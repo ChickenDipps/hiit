@@ -2,10 +2,12 @@ import express from 'express';
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 
+// Sets up express to serve the webpages directory
 const app = express();
-
 app.use(express.static('webpages'));
+app.listen(8080);
 
+// Retrieves the list of workouts associated with the currently logged in user from the database
 app.get('/api/workouts', async (req, res) => {
   const userID = req.query.userId;
   const db = await open({
@@ -13,8 +15,6 @@ app.get('/api/workouts', async (req, res) => {
     driver: sqlite3.Database,
   });
   const workouts = await db.all('SELECT workouts.id, workouts.* FROM workouts JOIN user_workouts ON workouts.id = user_workouts.workout_id JOIN users ON user_workouts.user_id = users.id WHERE users.id = ?;', userID);
-  // const parsedWorkouts = workouts.map(workout => JSON.parse(workout.data));
-  console.log(workouts);
   res.json(workouts);
 });
 
@@ -28,7 +28,7 @@ app.get('/api/users', async (req, res) => {
   res.json(users);
 });
 
-// Adds a new workout to the database
+// Adds a new workout to the database and associates it with the currently logged in user
 app.post('/api/workouts', express.json(), async (req, res) => {
   const workout = req.body;
   const userId = workout.userID;
@@ -53,5 +53,3 @@ app.post('/api/share', express.json(), async (req, res) => {
   await db.run('INSERT INTO user_workouts (user_id, workout_id) VALUES (?, ?)', userId, workoutId);
   res.json({ success: true });
 });
-
-app.listen(8080);

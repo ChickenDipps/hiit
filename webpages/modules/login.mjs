@@ -1,3 +1,4 @@
+// Gets the current login from local storage and displays it in the footer
 export function setLoggedInUser() {
   const userId = localStorage.getItem('userId');
   const userName = localStorage.getItem('userName');
@@ -29,6 +30,7 @@ export function setLoggedInUser() {
   }
 }
 
+// Gets all the users from the database
 export async function getUsers() {
   const response = await fetch('/api/users');
   const users = await response.json();

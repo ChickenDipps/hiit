@@ -1,6 +1,6 @@
 import { setLoggedInUser, getUsers } from './modules/login.mjs';
 
-
+// Gets all the users from the database and displays them in a dropdown
 function displayUsers(users) {
   console.log('Displaying users ' + users);
   const dropdown = document.querySelector('#users');
@@ -13,6 +13,7 @@ function displayUsers(users) {
   }
 }
 
+// When the login button is clicked, the userID is stored in local storage
 function loginButtonAttacher() {
   const button = document.querySelector('#loginButton');
   button.addEventListener('click', () => {
@@ -23,8 +24,7 @@ function loginButtonAttacher() {
 
     localStorage.setItem('userId', userId);
     localStorage.setItem('userName', userName);
-    const loggedInUsers = document.querySelector('#login');
-    loggedInUsers.textContent = 'Logged in as ' + userName;
+    setLoggedInUser();
   });
 }
 
