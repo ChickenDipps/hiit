@@ -31,11 +31,12 @@ In the footer of every page it dislays the currently logged in user. This info i
 ## AI
 
 
-### Prompts to develop XYZ (exmaple)
-A sequence of prompts helped me develop this feature:
+### Prompts to develop the create page
 
->  this is an example prompt given to a chatbot
-The response was proved useless because the prompt wasn't specific enough about XYZ, so:
+>  @workspace for the createButtonAttacher function, when the button is pressed the object is created but it only has the first exercise name but has multiple (correct) timings
+
+> The createButtonAttacher function in webpages/create.mjs creates a workout object when the button is clicked. This object includes an array of exercises and an array of times. The exercises array is populated by iterating over the exercisesArray and pushing each exercise.value into the exercises array. Similarly, the times array is populated by iterating over the timesArray and pushing each time.value into the times array. If the exercises array only contains the first exercise name, it could be due to the following reasons: The querySelectorAll('.exercise') is not selecting all the exercise elements correctly. Ensure that all exercise elements have the class 'exercise'. The exercise.value is not retrieving the correct value for each exercise. Ensure that the value attribute is correctly set for each exercise element. There might be an issue with the timing of when the button click event is fired and when the exercises are added to the page. If the exercises are added to the page after the button click event listener is attached, the querySelectorAll('.exercise') will not include these exercises. To fix this, you could move the code that attaches the event listener to a function that is called after all exercises are added to the page.
+The response was helpful as it made me realise I forgot to add the class property of the exercises added by the "Add another exercise" button.
 
 ### Prompts to develop GHIJ (exmaple)
 
