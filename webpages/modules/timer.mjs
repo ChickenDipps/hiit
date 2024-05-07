@@ -11,7 +11,7 @@ export function startButtonAttacher(workout) {
 
     // Start the timer
     intervalId = setInterval(() => {
-      const input = document.querySelector('#timerInput').value;
+      const input = document.querySelector('#timerInput').textContent;
       const inputArray = input.split(':');
       let minutes = parseInt(inputArray[0]);
       let seconds = parseInt(inputArray[1]);
@@ -22,7 +22,7 @@ export function startButtonAttacher(workout) {
         seconds--;
       }
       const newTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-      document.querySelector('#timerInput').value = newTime;
+      document.querySelector('#timerInput').textContent = newTime;
 
       const timings = workout.timings;
       console.log('Current workout: ' + workout.exercises[currentTiming]);
@@ -33,12 +33,12 @@ export function startButtonAttacher(workout) {
           currentTiming++;
           console.log('Next workout: ' + workout.exercises[currentTiming]);
           document.querySelector('#currentWorkout').textContent = 'Current workout: ' + workout.exercises[currentTiming];
-          document.querySelector('#timerInput').value = timings[currentTiming];
+          document.querySelector('#timerInput').textContent = timings[currentTiming];
         } else {
           console.log('Workout complete');
           clearInterval(intervalId);
           document.querySelector('#currentWorkout').textContent = 'Workout Complete';
-          document.querySelector('#timerInput').value = '0:00';
+          document.querySelector('#timerInput').textContent = '0:00';
         }
       }
     }, 1000);

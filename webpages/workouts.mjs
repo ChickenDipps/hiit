@@ -111,6 +111,9 @@ function editButtonClicked(event, workoutId) {
       }
     });
   });
+  document.querySelector('#back').addEventListener('click', () => {
+    window.location.href = '/workouts.html';
+  });
 }
 
 // When the share button is clicked, it displays a list of users to share the workout with
@@ -161,6 +164,9 @@ async function shareButtonClicked(event) {
     }
   });
   document.querySelector('#content').append(templateContent);
+  document.querySelector('#back').addEventListener('click', () => {
+    window.location.href = '/workouts.html';
+  });
 }
 
 // Removes the elements added by the selection template and adds the workout template
@@ -190,10 +196,13 @@ function workoutButtonClicked() {
   // Adds the timer template
   const timer = document.querySelector('#timer');
   const timerContent = timer.content.cloneNode(true);
-  timerContent.querySelector('#timerInput').value = workout.timings[0];
+  timerContent.querySelector('#timerInput').textContent = workout.timings[0];
   document.querySelector('#content').append(timerContent);
   document.querySelector('#content').append(templateContent);
   timerModule.main(workout);
+  document.querySelector('#back').addEventListener('click', () => {
+    window.location.href = '/workouts.html';
+  });
 }
 
 // Loads the selection screen

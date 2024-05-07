@@ -28,15 +28,16 @@
 </template>
 
 <template id="workout">
-    <h1 id="workoutName"></h1>
+    <h2 id="workoutName"></h2>
     <p>Make sure to warm up before starting the exercises</p>
     <p id="workoutDescription"></p>
     <ul id="exerciseList"></ul>
 </template>
 
 <template id="timer">
+    <button id="back">Back</button>
     <h2>Timer</h2>
-    <input type="text" id="timerInput" value="12:34">
+    <h3 id="timerInput">00:00</h3>
     <button id="start">Start</button>
     <button id="stop">Stop</button>
     <p id="currentWorkout"></p>
@@ -48,6 +49,7 @@
 </template>
 
 <template id="shareTemplate">
+    <button id="back">Back</button>
     <h1>Share your workout</h1>
     <p>Choose which user you want to share your workout with</p>
     <select id="userList"></select>
@@ -55,6 +57,7 @@
 </template>
 
 <template id="editTemplate">
+    <button id="back">Back</button>
     <h1>Edit workout</h1>
     <p>Edit your workout</p>
     <div id="editBody">
@@ -67,10 +70,16 @@
 </template>
 
 <template id="exerciseTemplate">
-    <label for="exercise">Exercise</label>
-    <input type="text" name="exercise" class="exercise" value="" required>
-    <label for="time">Time</label>
-    <input type="text" name="time" class="time" placeholder="mm:ss" value="" required>
+    <ul id="exerciseList">
+        <li>
+            <label for="exercise">Exercise</label>
+            <input type="text" name="exercise" class="exercise" value="" required>
+        </li>
+        <li>
+            <label for="time">Time</label>
+            <input type="text" name="time" class="time" placeholder="mm:ss" value="" required>
+        </li>
+    </ul>
 </template>
 
 </html>

@@ -54,6 +54,7 @@ app.post('/api/share', express.json(), async (req, res) => {
   res.json({ success: true });
 });
 
+// Edits a workout in the database
 app.post('/api/editWorkout/:workoutId', express.json(), async (req, res) => {
   const workout = req.body;
   const workoutId = req.params.workoutId;
