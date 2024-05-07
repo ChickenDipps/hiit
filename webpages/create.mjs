@@ -36,7 +36,7 @@ function newExerciseAttacher() {
 function createButtonAttacher() {
   // Create the workout object from the values in the form
   const button = document.querySelector('#createButton');
-  button.addEventListener('click', () => {
+  button.addEventListener('click', async () => {
     const workout = {};
     const exercises = [];
     const times = [];
@@ -57,7 +57,7 @@ function createButtonAttacher() {
     workout.userID = localStorage.getItem('userId');
 
     // Send the workout to the server
-    fetch('/api/workouts', {
+    await fetch('/api/workouts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

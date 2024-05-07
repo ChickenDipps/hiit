@@ -56,19 +56,61 @@ function editButtonClicked(event, workoutId) {
   console.log('Edit button clicked');
   const workout = JSON.parse(event.target.dataset.workout);
   console.log(workout);
-  console.log(workout.id);
-  const elem = document.querySelector('#content');
-  while (elem.firstChild) { elem.removeChild(elem.firstChild); }
+  console.log(workoutId);
+
+  // Clears the screen
+  const content = document.querySelector('#content');
+  while (content.firstChild) { content.removeChild(content.firstChild); }
+
+  // Adds the edit template
   const template = document.querySelector('#editTemplate');
   const templateContent = template.content.cloneNode(true);
   const exerciseTemplate = document.querySelector('#exerciseTemplate');
+  document.querySelector('#content').append(templateContent);
+  document.querySelector('#editName').value = workout.name;
+  document.querySelector('#editDescription').value = workout.description;
+
+  // Adds the exercises to the edit template
   for (let i = 0; i < workout.exercises.length; i++) {
-    const exercise = workout.exercises[i];
-    const timing = workout.timings[i];
-    const li = document.createElement('li');
-    li.textContent = exercise + ' - ' + timing;
-    template.content.querySelector('#exerciseList').append(li);
+    const exerciseTemplateContent = exerciseTemplate.content.cloneNode(true);
+    const exercises = exerciseTemplateContent.querySelectorAll('.exercise');
+    const times = exerciseTemplateContent.querySelectorAll('.time');
+
+    if (exercises.length > 0) {
+      exercises[exercises.length - 1].value = workout.exercises[i];
+    }
+
+    if (times.length > 0) {
+      times[times.length - 1].value = workout.timings[i];
+    }
+    document.querySelector('#editBody').append(exerciseTemplateContent);
   }
+  document.querySelector('#editButton').addEventListener('click', async () => {
+    workout.name = document.querySelector('#editName').value;
+    workout.description = document.querySelector('#editDescription').value;
+    workout.exercises = [];
+    workout.timings = [];
+    const exercises = document.querySelectorAll('.exercise');
+    const times = document.querySelectorAll('.time');
+    for (let i = 0; i < exercises.length; i++) {
+      workout.exercises.push(exercises[i].value);
+      workout.timings.push(times[i].value);
+    }
+    await fetch(`/api/editWorkout/${workoutId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(workout),
+    }).then(response => {
+      if (response.ok) {
+        console.log('Workout created');
+        window.location.href = '/workouts.html';
+      } else {
+        console.error('Failed to edit workout');
+      }
+    });
+  });
 }
 
 // When the share button is clicked, it displays a list of users to share the workout with

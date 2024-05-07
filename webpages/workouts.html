@@ -58,7 +58,9 @@
     <h1>Edit workout</h1>
     <p>Edit your workout</p>
     <div id="editBody">
+        <label for="editName">Name</label>
         <input type="text" id="editName">
+        <label for="editDescription">Description</label>
         <input type="text" id="editDescription">
     </div>
     <button id="editButton">Edit</button>
@@ -66,9 +68,9 @@
 
 <template id="exerciseTemplate">
     <label for="exercise">Exercise</label>
-    <input type="text" name="exercise" class="exercise" required>
+    <input type="text" name="exercise" class="exercise" value="" required>
     <label for="time">Time</label>
-    <input type="text" name="time" class="time" placeholder="mm:ss" required>
+    <input type="text" name="time" class="time" placeholder="mm:ss" value="" required>
 </template>
 
 </html>
