@@ -36,9 +36,19 @@ In the footer of every page it dislays the currently logged in user. This info i
 >  @workspace for the createButtonAttacher function, when the button is pressed the object is created but it only has the first exercise name but has multiple (correct) timings
 
 > The createButtonAttacher function in webpages/create.mjs creates a workout object when the button is clicked. This object includes an array of exercises and an array of times. The exercises array is populated by iterating over the exercisesArray and pushing each exercise.value into the exercises array. Similarly, the times array is populated by iterating over the timesArray and pushing each time.value into the times array. If the exercises array only contains the first exercise name, it could be due to the following reasons: The querySelectorAll('.exercise') is not selecting all the exercise elements correctly. Ensure that all exercise elements have the class 'exercise'. The exercise.value is not retrieving the correct value for each exercise. Ensure that the value attribute is correctly set for each exercise element. There might be an issue with the timing of when the button click event is fired and when the exercises are added to the page. If the exercises are added to the page after the button click event listener is attached, the querySelectorAll('.exercise') will not include these exercises. To fix this, you could move the code that attaches the event listener to a function that is called after all exercises are added to the page.
+
 The response was helpful as it made me realise I forgot to add the class property of the exercises added by the "Add another exercise" button.
 
-### Prompts to develop GHIJ (exmaple)
+### Prompts to develop the api/workouts call
 
->  this is an example prompt given to a chatbot
-words words words etc.
+>  @workspace What is wrong with the SELECT statement for the workouts api call
+
+> The issue with the SELECT statement in the /api/workouts endpoint in the server.mjs file is that it's trying to join user_workouts with users on user_workouts = users.id. However, user_workouts is a table, not a column.
+Here is the problematic line:
+
+`const workouts = await db.all('SELECT data FROM workouts JOIN user_workouts ON workout.id = user_workouts.workout_id JOIN users ON user_workouts = users.id WHERE users.id = ?;', userID);`
+
+> You should specify the correct column from the user_workouts table to join on users.id. If the column in user_workouts table that contains the user id is user_id, the corrected SQL statement would be:
+
+`const workouts = await db.all('SELECT data FROM workouts JOIN user_workouts ON workout.id = user_workouts.workout_id JOIN users ON user_workouts.user_id = users.id WHERE users.id = ?;', userID);`
+
