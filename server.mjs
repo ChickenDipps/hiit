@@ -65,3 +65,15 @@ app.post('/api/editWorkout/:workoutId', express.json(), async (req, res) => {
   await db.run('UPDATE workouts SET data = ? WHERE id = ?', JSON.stringify(workout), workoutId);
   res.json({ success: true });
 });
+
+// Deletes a workout from the database
+app.delete('/api/deleteWorkout/:workoutId/:userId', async (req, res) => {
+  const workoutId = req.params.workoutId;
+  const userId = req.params.userId;
+  const db = await open({
+    filename: './database.sqlite',
+    driver: sqlite3.Database,
+  });
+  await db.run('DELETE FROM user_workouts WHERE user_id = ? AND workout_id = ?', userId, workoutId);
+  res.json({ success: true });
+});

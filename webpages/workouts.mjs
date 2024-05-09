@@ -31,6 +31,7 @@ function displayWorkoutList(workouts) {
     const workoutButton = document.createElement('button');
     const editButton = document.createElement('button');
     const shareButton = document.createElement('button');
+    const deleteButton = document.createElement('button');
 
     workoutButton.textContent = (workout.name);
     workoutButton.id = workout.name;
@@ -45,10 +46,29 @@ function displayWorkoutList(workouts) {
     shareButton.dataset.workout = JSON.stringify(workout);
     shareButton.addEventListener('click', (event) => shareButtonClicked(event, workout.id));
 
+    deleteButton.textContent = 'Delete';
+    deleteButton.addEventListener('click', (event) => deleteButtonClicked(event, workout.id));
+
     workoutListItem.append(workoutButton);
     workoutListItem.append(editButton);
     workoutListItem.append(shareButton);
+    workoutListItem.append(deleteButton);
     workoutList.append(workoutListItem);
+  }
+}
+
+// When the delete button is clicked, it deletes the workout from the intersection table (keeps the workout in the workout table)
+async function deleteButtonClicked(event, workoutId) {
+  console.log('Delete button clicked');
+  const userId = localStorage.getItem('userId');
+  const response = await fetch(`/api/deleteWorkout/${workoutId}/${userId}`, {
+    method: 'DELETE',
+  });
+  if (response.ok) {
+    console.log('Workout deleted');
+    window.location.href = '/workouts.html';
+  } else {
+    console.error('Failed to delete workout');
   }
 }
 
