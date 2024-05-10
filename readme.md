@@ -25,8 +25,12 @@ Next to each on the workouts page (`localhost:8080/workouts.html`) you can press
 ### Edit a workout
 On the workouts page (`localhost:8080/workouts.html`) you can press the edit button next to a workout and change the parameters of said workout. Note if the workout is shared with any other user it will also edit their copy of the workout.
 
+### Delete a workout
+On the workouts page (`localhost:8080/workouts.html`) you can press the delete button which will remove the entry in the user_workouts intersection table. This makes it so workouts shared with other users don't get deleted by one user however, it is possible to have a workout stored that is never used.
+
 ### Login
 In the footer of every page it dislays the currently logged in user. This info is stored as a key in the browsers local storage. It has a logout button that simply removes the key from local storage and a change button that takes you to the login screen. You need to be logged in to access the workouts.
+
 
 ## AI
 
