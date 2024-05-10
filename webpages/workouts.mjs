@@ -105,6 +105,12 @@ function editButtonClicked(event, workoutId) {
     }
     document.querySelector('#editBody').append(exerciseTemplateContent);
   }
+  document.querySelector('#addExercise').addEventListener('click', newExerciseAttacher);
+  document.querySelectorAll('#remove').forEach(button => {
+    button.addEventListener('click', () => {
+      button.parentElement.parentElement.remove();
+    });
+  });
   document.querySelector('#editButton').addEventListener('click', async () => {
     workout.name = document.querySelector('#editName').value;
     workout.description = document.querySelector('#editDescription').value;
@@ -133,6 +139,25 @@ function editButtonClicked(event, workoutId) {
   });
   document.querySelector('#back').addEventListener('click', () => {
     window.location.href = '/workouts.html';
+  });
+}
+
+function newExerciseAttacher() {
+  console.log('New exercise button clicked');
+  const template = document.querySelector('#exerciseTemplate');
+  const clone = document.importNode(template.content, true);
+  document.querySelector('#editBody').append(clone);
+  const removeButtons = document.querySelectorAll('#remove');
+  removeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      button.parentElement.parentElement.remove();
+    });
+  });
+  const times = document.querySelectorAll('.time');
+  times.forEach(time => {
+    time.addEventListener('change', (event) => {
+      event.target.value = timerModule.checkFormatting(event.target.value);
+    });
   });
 }
 

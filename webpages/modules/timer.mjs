@@ -71,6 +71,8 @@ export function checkFormatting(el) {
     } else {
       if (el.length > 4) {
         el = el[0] + el[1] + ':' + el[2] + el[3];
+      } else {
+        return el;
       }
     }
     return el;

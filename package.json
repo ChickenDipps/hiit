@@ -9,7 +9,7 @@
     "setup": "node setup.mjs"
   },
   "keywords": [],
-  "author": "",
+  "author": "Lily Cholmondeley",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.56.0",
